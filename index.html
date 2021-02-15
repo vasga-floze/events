@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Evento prueba</title>
+</head>
+<body>
+    <div id="eventos">
+
+        <div class="card text-center">
+            <div class="card-header">
+              Eventos | keyCodes 
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Escribe un texto</h5>
+              <p class="card-text">Las teclas de letras pintaran verde</p>
+              <p class="card-text">Los teclas de numeros pintaran rojo</p>
+              <p class="card-text">Las demas teclas pintaran amarillo</p>
+              <!--Evento a utilizar keydown-->
+              <input type="text" 
+                id="entradaText"
+                @keydown="keyDown" 
+                :style="[{ 'fontSize': fontSize+'px'}]"
+                ><br>
+                <!--Boton para aumentar a disminuir el tamaño de la fuente-->
+    
+                <button class="btn btn-outline-dark" v-on:click="fontSize++" >Incremento</button>
+                <button class="btn btn-outline-dark" v-on:click="fontSize--">Decremento</button>
+
+            </div>
+            <div class="card-footer text-muted">
+              Vasti Gabriela Flores Zelaya
+            </div>
+          </div>
+  
+    </div>
+
+    <script>
+        const app=new Vue({
+            el: '#eventos',
+            data: {
+                fontSize: 40,
+            },
+            methods:{
+                keyDown(event){
+                    input = document.getElementById('entradaText');
+                    console.log(event.which)
+                    //Mediante los keycode se filtrara que tipo de letra se esta presionando
+                    if ((event.which) >= 65 && (event.which) <=90 ){ 
+                        //si es letra cambiar texto del input a color verde
+                        console.log('Es una letra')
+                        input.style.backgroundColor = "#2EFE64";
+                    }
+                    else if((event.which) >= 48 && (event.which) <=57 || (event.which) >= 96 && (event.which) <=105 ) { 
+                        //si es numero cambiar texto del input a color rojo
+                        console.log('Es un numero')
+                        input.style.backgroundColor = "#FA5858";
+                    }
+                    else {
+                        //amarillo si es otro tipo de caracter
+                        console.log('Es un caracter diferente a letra y numero')
+                        input.style.backgroundColor = "#F4FA58";
+                    }
+                }
+            },
+            computed: {
+
+                colorText(){
+                    return{
+                        letra: this.letra,
+                        numero: this.numero,
+                        otro: this.otro
+                    }
+                }
+           
+            }
+                
+        })
+                                    
+    </script>
+</body>
+</html>
